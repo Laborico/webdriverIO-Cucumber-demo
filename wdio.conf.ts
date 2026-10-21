@@ -1,3 +1,5 @@
+import 'dotenv/config'
+
 export const config: WebdriverIO.Config = {
     //
     // ====================
@@ -86,7 +88,7 @@ export const config: WebdriverIO.Config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    // baseUrl: 'http://localhost:8080',
+    baseUrl: process.env.BASE_URL,
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
@@ -135,7 +137,7 @@ export const config: WebdriverIO.Config = {
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
         // <string[]> (file/dir) require files before executing features
-        require: ['./features/step-definitions/steps.ts'],
+        require: ['./features/step-definitions/**/*.ts'],
         // <boolean> show full backtrace for errors
         backtrace: false,
         // <string[]> ("extension:module") require files with the given EXTENSION after requiring MODULE (repeatable)
@@ -271,8 +273,11 @@ export const config: WebdriverIO.Config = {
      * @param {number}                 result.duration  duration of scenario in milliseconds
      * @param {object}                 context          Cucumber World object
      */
-    // afterScenario: function (world, result, context) {
-    // },
+    afterScenario: async function (world, result, context) {
+        // scenarios in a feature share one browser session, so clear the
+        // login cookie to start each scenario logged out
+        await browser.deleteCookies()
+    },
     /**
      *
      * Runs after a Cucumber Feature.

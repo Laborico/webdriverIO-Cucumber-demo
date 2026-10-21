@@ -1,12 +1,15 @@
-Feature: The Internet Guinea Pig Website
+Feature: Login
+  As a patient
+  I want to log in to CURA Healthcare
+  So that I can manage my appointments
 
-  Scenario Outline: As a user, I can log into the secure area
-
+  Scenario Outline: Login with <description>
     Given I am on the login page
-    When I login with <username> and <password>
-    Then I should see a flash message saying <message>
+    When I log in with username "<username>" and password "<password>"
+    Then I should see <result>
 
     Examples:
-      | username | password             | message                        |
-      | tomsmith | SuperSecretPassword! | You logged into a secure area! |
-      | foobar   | barfoo               | Your username is invalid!      |
+      | description         | username       | password       | result                   |
+      | valid credentials   | $CURA_USERNAME | $CURA_PASSWORD | the appointment form     |
+      | an invalid password | $CURA_USERNAME | wrongPassword  | a login failed message   |
+      | an unknown user     | Jane Roe       | $CURA_PASSWORD | a login failed message   |

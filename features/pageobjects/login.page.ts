@@ -9,15 +9,19 @@ class LoginPage extends Page {
      * define selectors using getter methods
      */
     public get inputUsername () {
-        return $('#username');
+        return $('#txt-username');
     }
 
     public get inputPassword () {
-        return $('#password');
+        return $('#txt-password');
     }
 
-    public get btnSubmit () {
-        return $('button[type="submit"]');
+    public get btnLogin () {
+        return $('#btn-login');
+    }
+
+    public get loginFailedMessage () {
+        return $('#login .text-danger');
     }
 
     /**
@@ -27,14 +31,14 @@ class LoginPage extends Page {
     public async login (username: string, password: string) {
         await this.inputUsername.setValue(username);
         await this.inputPassword.setValue(password);
-        await this.btnSubmit.click();
+        await this.btnLogin.click();
     }
 
     /**
      * overwrite specific options to adapt it to page object
      */
     public open () {
-        return super.open('login');
+        return super.open('/profile.php#login');
     }
 }
 
