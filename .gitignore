@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Environment variables and secrets
+.env
+
+# Test reports and results
+allure-results/
+allure-report/
+reports/
+results/
+logs/
+*.log
+
+# Screenshots and videos from failed runs
+screenshots/
+videos/
+
+# TypeScript build output
+dist/
+build/
+*.tsbuildinfo
+
+# Coverage
+coverage/
