@@ -273,7 +273,7 @@ export const config: WebdriverIO.Config = {
      * @param {number}                 result.duration  duration of scenario in milliseconds
      * @param {object}                 context          Cucumber World object
      */
-    afterScenario: async function (world, result, context) {
+    afterScenario: async function () {
         // scenarios in a feature share one browser session, so clear the
         // login cookie to start each scenario logged out
         await browser.deleteCookies()
