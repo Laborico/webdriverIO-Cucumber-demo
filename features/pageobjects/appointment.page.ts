@@ -2,10 +2,10 @@ import { $ } from '@wdio/globals'
 import Page from './page.js';
 
 export interface Appointment {
-    facility: string;
-    program: string;
-    date: string;
-    comment: string;
+    facility?: string;
+    program?: string;
+    date?: string;
+    comment?: string;
 }
 
 class AppointmentPage extends Page {
@@ -26,6 +26,10 @@ class AppointmentPage extends Page {
         return $('#txt_visit_date');
     }
 
+    public get datepicker () {
+        return $('.datepicker-dropdown');
+    }
+
     public get inputComment () {
         return $('#txt_comment');
     }
@@ -35,10 +39,18 @@ class AppointmentPage extends Page {
     }
 
     public async book (appointment: Appointment) {
-        await this.selectFacility.selectByVisibleText(appointment.facility);
-        await this.radioProgram(appointment.program).click();
-        await this.inputVisitDate.setValue(appointment.date);
-        await this.inputComment.setValue(appointment.comment);
+        if (appointment.facility !== undefined) {
+            await this.selectFacility.selectByVisibleText(appointment.facility);
+        }
+        if (appointment.program !== undefined) {
+            await this.radioProgram(appointment.program).click();
+        }
+        if (appointment.date !== undefined) {
+            await this.inputVisitDate.setValue(appointment.date);
+        }
+        if (appointment.comment !== undefined) {
+            await this.inputComment.setValue(appointment.comment);
+        }
         await this.btnBookAppointment.click();
     }
 }

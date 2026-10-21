@@ -1,3 +1,4 @@
+@login
 Feature: Login
   As a patient
   I want to log in to CURA Healthcare
@@ -8,8 +9,12 @@ Feature: Login
     When I log in with username "<username>" and password "<password>"
     Then I should see <result>
 
-    Examples:
+    @smoke
+    Examples: Valid credentials
       | description         | username       | password       | result                   |
       | valid credentials   | $CURA_USERNAME | $CURA_PASSWORD | the appointment form     |
+
+    Examples: Invalid credentials
+      | description         | username       | password       | result                   |
       | an invalid password | $CURA_USERNAME | wrongPassword  | a login failed message   |
       | an unknown user     | Jane Roe       | $CURA_PASSWORD | a login failed message   |
