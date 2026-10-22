@@ -23,8 +23,8 @@ Feature: Appointment history
       | comment     | <comment>     |
 
     Examples:
-      | facility                     | readmission | program  | date       | comment                |
-      | Tokyo CURA Healthcare Center | Yes         | Medicare | 15/12/2026 | Follow-up consultation |
+      | facility                     | readmission | program  | date            | comment                |
+      | Tokyo CURA Healthcare Center | Yes         | Medicare | today + 45 days | Follow-up consultation |
 
   Scenario: History is empty before any appointment is booked
     When I open the appointment history

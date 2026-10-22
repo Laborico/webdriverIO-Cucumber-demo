@@ -10,20 +10,24 @@ Feature: Book an appointment
   @smoke
   Scenario Outline: Book an appointment with <program>
     When I book an appointment with:
-      | facility | <facility> |
-      | program  | <program>  |
-      | date     | <date>     |
-      | comment  | <comment>  |
+      | facility    | <facility>    |
+      | readmission | <readmission> |
+      | program     | <program>     |
+      | date        | <date>        |
+      | comment     | <comment>     |
     Then I should see the appointment confirmation
-    And the confirmation should show the facility "<facility>"
-    And the confirmation should show the program "<program>"
-    And the confirmation should show the date "<date>"
+    And the confirmation should show:
+      | facility    | <facility>    |
+      | readmission | <readmission> |
+      | program     | <program>     |
+      | date        | <date>        |
+      | comment     | <comment>     |
 
     Examples:
-      | facility                        | program  | date       | comment         |
-      | Hongkong CURA Healthcare Center | Medicaid | 30/11/2026 | Annual check-up |
-      | Hongkong CURA Healthcare Center | Medicare | 30/11/2026 | Annual check-up |
-      | Hongkong CURA Healthcare Center | None     | 30/11/2026 | Annual check-up |
+      | facility                        | readmission | program  | date            | comment         |
+      | Hongkong CURA Healthcare Center | No          | Medicaid | today + 30 days | Annual check-up |
+      | Hongkong CURA Healthcare Center | No          | Medicare | today + 30 days | Annual check-up |
+      | Hongkong CURA Healthcare Center | No          | None     | today + 30 days | Annual check-up |
 
   Scenario: Book an appointment without a visit date
     When I book an appointment with:
