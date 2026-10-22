@@ -1,5 +1,6 @@
 {
-  "name": "webdriverIO-Cucumber-demo",
+  "name": "webdriverio-cucumber-demo",
+  "private": true,
   "type": "module",
   "devDependencies": {
     "@types/node": "^26.6.5",
@@ -13,6 +14,7 @@
     "expect-webdriverio": "^8.0.0"
   },
   "scripts": {
+    "test": "wdio run ./wdio.conf.ts",
     "wdio": "wdio run ./wdio.conf.ts"
   }
 }

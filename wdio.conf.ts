@@ -1,4 +1,5 @@
 import 'dotenv/config'
+import allureReporter from '@wdio/allure-reporter'
 
 export const config: WebdriverIO.Config = {
     runner: 'local',
@@ -21,6 +22,13 @@ export const config: WebdriverIO.Config = {
     reporters: ['spec', ['allure', { outputDir: 'allure-results' }]],
     cucumberOpts: {
         require: ['./features/step-definitions/**/*.ts']
+    },
+
+    afterStep: async function (_step, _scenario, result) {
+        if (!result.passed) {
+            const screenshot = await browser.takeScreenshot()
+            await allureReporter.addAttachment('Screenshot', Buffer.from(screenshot, 'base64'), 'image/png')
+        }
     },
 
     afterScenario: async function () {
