@@ -5,8 +5,7 @@ import AppointmentPage from '../pageobjects/appointment.page.js';
 import ConfirmationPage from '../pageobjects/confirmation.page.js';
 
 When('I book an appointment with:', async (table: DataTable) => {
-    const { facility, program, date, comment } = table.rowsHash();
-    await AppointmentPage.book({ facility, program, date, comment })
+    await AppointmentPage.book(table.rowsHash())
 });
 
 Then('I should see the appointment confirmation', async () => {

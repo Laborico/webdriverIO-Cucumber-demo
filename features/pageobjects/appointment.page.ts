@@ -3,6 +3,7 @@ import Page from './page.js';
 
 export interface Appointment {
     facility?: string;
+    readmission?: string;
     program?: string;
     date?: string;
     comment?: string;
@@ -16,6 +17,10 @@ class AppointmentPage extends Page {
 
     public get selectFacility () {
         return $('#combo_facility');
+    }
+
+    public get checkboxReadmission () {
+        return $('#chk_hospotal_readmission');
     }
 
     public radioProgram (program: string) {
@@ -41,6 +46,12 @@ class AppointmentPage extends Page {
     public async book (appointment: Appointment) {
         if (appointment.facility !== undefined) {
             await this.selectFacility.selectByVisibleText(appointment.facility);
+        }
+        if (appointment.readmission !== undefined) {
+            const readmission = appointment.readmission === 'Yes';
+            if (await this.checkboxReadmission.isSelected() !== readmission) {
+                await this.checkboxReadmission.click();
+            }
         }
         if (appointment.program !== undefined) {
             await this.radioProgram(appointment.program).click();
